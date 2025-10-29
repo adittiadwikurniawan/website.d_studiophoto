@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D_Studio Photography - Jasa Edit Foto Profesional</title>
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .logo::after {
+            content: '';
+            display: ;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #000, #D4AF37);
+            margin-left: 5px;
+            border-radius: 50%;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover {
+            color: #D4AF37;
+        }
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x1080/000000/D4AF37?text=Studio+Blur+Background') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .cta-btn {
+            background: #D4AF37;
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Before-After Gallery */
+        .gallery {
+            padding: 5rem 0;
+            background: #f9f9f9;
+        }
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #000;
+        }
+        .slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100%;
+            position: relative;
+            aspect-ratio: 3 / 4;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            pointer-events: none;
+            position: relative;/* Disable drag */
+        }
+        /* Buat watermark sebagai background pattern */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, 
+            transparent 49px, 
+            rgba(212, 175, 55, 0.1) 50px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 100px,
+            rgba(212, 175, 55, 0.2) 100px,
+            rgba(212, 175, 55, 0.2) 102px
+        );
+    z-index: 5;  /* Di belakang label, tapi atas img */
+    pointer-events: none;
+}
+
+/* Watermark teks berulang – optional, pakai repeating background */
+.slide {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(212, 175, 55, 0.4) 20px,
+        rgba(212, 175, 55, 0.4) 22px
+    );
+    background-size: 100px 100px;  /* Ukuran tile */
+}
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: rgba(212, 175, 55, 0.5);
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .before-label, .after-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        .gallery-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Price List */
+        .prices {
+            padding: 5rem 0;
+            background: #fff;
+        }
+        .prices h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #000;
+        }
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .price-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+        .price-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #D4AF37;
+        }
+        .price-card .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+        .price-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .note {
+            text-align: center;
+            margin-top: 3rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: #000;
+            color: #fff;
+        }
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .social-links a {
+            color: #D4AF37;
+            font-size: 2rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .footer-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu
+            .slide img {
+                aspect-ratio: 3 / 4;  
+                max-height: 400px;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #000;
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Security Features */
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        img {
+            user-drag: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">D_Studio Photography</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#gallery">Portofolio</a></li>
+                <li><a href="#prices">Daftar Harga</a></li>
+                <li><a href="#contact">Pesan</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content container">
+            <h1>Ubah Fotomu, Tampilkan Versi Terbaik Dirimu.</h1>
+            <p>Layanan edit foto profesional untuk KTM, ID card, dan kebutuhan digital.</p>
+            <a href="https://wa.me/6287786086204" class="cta-btn" target="_blank">Pesan via WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Gallery Before-After -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Before & After</h2>
+            <div class="slider">
+                <div class="slides" id="slides">
+                    <div class="slide">
+                        <img src="before1.jpg" alt="Before 1">
+                        <div class="before-label">Before</div>
+                        <div class="watermark">D_STUDIO</div>
+                    </div>
+                    <div class="slide">
+                        <img src="before2.jpg" alt="After 1">
+                        <div class="after-label">After</div>
+                        <div class="watermark">D_STUDIO</div>
+                    </div>
+                    <div class="slide">
+                        <img src="before 3.jpg" alt="Before 2">
+                        <div class="before-label">Before</div>
+                        <div class="watermark">D_STUDIO</div>
+                    </div>
+                    <div class="slide">
+                        <img src="before4.jpg" alt="After 2">
+                        <div class="after-label">After</div>
+                        <div class="watermark">D_STUDIO</div>
+                    </div>
+                </div>
+                <button class="nav-btn prev" onclick="changeSlide(-1)">‹</button>
+                <button class="nav-btn next" onclick="changeSlide(1)">›</button>
+            </div>
+            <p class="gallery-text">Hasil nyata, editan rapi, tanpa berlebihan.</p>
+        </div>
+    </section>
+
+    <!-- Price List -->
+    <section id="prices" class="prices">
+        <div class="container">
+            <h2>Daftar Harga</h2>
+            <div class="price-grid">
+                <div class="price-card">
+                    <h3>Basic Edit & Bebas Request</h3>
+                    <div class="price">Rp15.000</div>
+                    <ul>
+                        <li>Ganti background</li>
+                        <li>Ganti Drescode</li>
+                        <li>Pencahayaan</li>
+                        <li>Retouch Wajah</li>
+                        <li>Free Soft File Ukuran : 2x3 3x4 4x6</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>2 Drescode & Bebas Request</h3>
+                    <div class="price">Rp25.000</div>
+                    <ul>
+                        <li>Tone kulit</li>
+                        <li>Pencahayaan profesional</li>
+                        <li>Ganti Background</li>
+                        <li>Retouch Wajah</li>
+                        <li>Bebas Request Drescode (Maks.2)</li>
+                        <li>Free Soft File Ukuran : 2x3 3x4 4x6</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="note">File digital dan file cetak memiliki kualitas berbeda, karena file cetak sudah dioptimalkan untuk kebutuhan print.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Kontak Kami</h2>
+            <div class="social-links">
+                <a href="https://wa.me/6287786086204" target="_blank">
+                     <img src="whatsapp-logo-4454" alt="WhatsApp" class="social-icon"> WhatsApp
+                </a>
+                <a href="https://instagram.com/d_studiophot0graphy" target="_blank">
+                    <img="instagram-logo-8869" alt="instagram" class="social-icon"> Instagram
+                </a>
+                <a href="d_studio12@dstudio.com">
+                     <img="gmail-logo-2561" alt="email" class="social-icon"> Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 D_Studio Photography – All Rights Reserved</p>
+            <p class="footer-note">Preview dilindungi. Tidak dapat diunduh atau di-screenshot.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Disable Right Click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+        });
+
+        // Slider Functionality
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Smooth Scrolling for Nav Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
